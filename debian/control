@@ -1,0 +1,16 @@
+Source: rocket-init-scripts
+Section: admin
+Priority: extra
+Maintainer: Jo Shields <directhex@apebox.org>
+Build-Depends: debhelper (>= 8.0.0)
+Standards-Version: 3.9.2
+Homepage: https://github.com/steamos-community
+
+Package: rocket-init-scripts
+Architecture: all
+Depends: ${misc:Depends}, 
+ nvidia-driver,
+ fglrx-modules-dkms
+Description: Init script modifications for Stephenson's Rocket
+ This package contains files specific to Stephenson's Rocket, and alter boot
+ behaviour compared to SteamOS.

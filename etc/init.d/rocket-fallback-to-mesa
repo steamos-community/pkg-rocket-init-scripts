@@ -1,0 +1,97 @@
+#! /bin/bash
+### BEGIN INIT INFO
+# Provides:         rocket-fallback-to-mesa
+# Required-Start:   $remote_fs $syslog build-dkms
+# Required-Stop:
+# Default-Start:    2 3 4 5
+# Default-Stop:     0 1 6
+# Short-Description: Mesa fallback on NV/AMD
+# Description:       Detect unsupported old GPUs and use Mesa for them
+### END INIT INFO
+
+PATH=/sbin:/bin:/usr/bin:/usr/sbin
+
+. /lib/init/vars.sh
+. /lib/lsb/init-functions
+
+do_start () {
+ # check for ATI cards not supported by fglrx
+ # all ATI cards (even Apple derivs) have ATI PCI ID 1002, and VGA cards have class 0300h
+ detected_radeons=`lspci -n | grep " 0300: " | cut -f3 -d' ' | grep ^1002 | tr '[:lower:]' '[:upper:]'`
+ # the fglrx module maintains a list of exact supported cards, extract it
+ supported_radeons=`modinfo fglrx | grep alias | sed 's/.*pci:v0000\([0-9A-F][0-9A-F][0-9A-F][0-9A-F]\)d0000\([0-9A-F][0-9A-F][0-9A-F][0-9A-F]\).*/\1:\2/'`
+ # set a flag to indicate no supported radeon found
+ foundsupportedaticard="false"
+ for i in $detected_radeons
+ do
+   if [[ $supported_radeons == *"$i"* ]]
+     then foundsupportedaticard="true"
+   fi
+ done
+
+ # check for NVIDIA cards not supported by nvidia-glx
+ # all ATI cards (even Apple derivs) have NVIDIA PCI ID 10DE, and VGA cards have class 0300h
+ detected_geforce=`lspci -n | grep " 0300: " | cut -f3 -d' ' | grep ^10de | tr '[:lower:]' '[:upper:]'`
+ # $DEITY preserve my soul for this.
+ # there is no machine-readable way to get the list of supported GPUs for NVIDIA. We need to use grep on the README file.
+ # let's just pray the format never changes under us.
+ # hooray
+ supported_geforce=`zcat /usr/share/doc/nvidia-driver/README.txt.gz | sed '1,/A1. NVIDIA GEFORCE GPUS/d; /Below are the legacy GPUs/q' | grep '^    ' | grep -v '\-\-\-\-\-' | grep -v 'Device PCI ID' | sed 's/^    //; s/.*  0x\([0-9A-Z]\)/10DE:\1/;' | cut -f1 -d' ' | sort | uniq`
+ # set a flag to indicate no supported geforce found
+ foundsupportedgeforcecard="false"
+ for i in $detected_geforce
+ do
+   if [[ $supported_geforce == *"$i"* ]]
+     then foundsupportedgeforcecard="true"
+   fi
+ done
+
+ if [ "x$foundsupportedaticard" == "xfalse" ] && [ "x$foundsupportedgeforcecard" == "xfalse" ]
+   then update-alternatives --set glx /usr/lib/mesa-diverted
+   mkdir -p /etc/X11/xorg.conf.d
+   if [ -n "$detected_geforce" ]
+     then cat <<EOF >/etc/X11/xorg.conf.d/20-nouveau.conf
+Section "Device"
+    Identifier "Nvidia card"
+    Driver "nouveau"
+EndSection
+EOF
+   fi
+ else
+   rm -f /etc/X11/xorg.conf.d/20-nouveau.conf
+ fi
+
+ ldconfig
+
+ # clear any potential feedback we might have left on screen
+ plymouth display-message --text=""
+ return 0
+}
+
+do_status () {
+ return 0
+}
+
+case "$1" in
+  start|"")
+ do_start
+ ;;
+  restart|reload|force-reload)
+ echo "Error: argument '$1' not supported" >&2
+ exit 3
+ ;;
+  stop)
+ # No-op
+ ;;
+  status)
+ do_status
+ exit $?
+ ;;
+  *)
+ echo "Usage: rocket-fallback-to-mesa" >&2
+ exit 3
+ ;;
+esac
+
+:
+

@@ -1,0 +1,20 @@
+#!/bin/sh
+
+set -e
+
+. /usr/share/debconf/confmodule
+
+THIS_PACKAGE=rocket-init-scripts
+
+# update-rc.d levels
+S=40
+K=01
+
+if [ -x /etc/init.d/rocket-fallback-to-mesa ]; then
+  update-rc.d rocket-fallback-to-mesa defaults $S $K >/dev/null 2>&1
+fi
+
+#DEBHELPER#
+
+exit 0
+
