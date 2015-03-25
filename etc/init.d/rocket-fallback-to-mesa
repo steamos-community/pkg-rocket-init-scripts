@@ -36,7 +36,7 @@ do_start () {
  # there is no machine-readable way to get the list of supported GPUs for NVIDIA. We need to use grep on the README file.
  # let's just pray the format never changes under us.
  # hooray
- supported_geforce=`zcat /usr/share/doc/nvidia-driver/README.txt.gz | sed '1,/A1. NVIDIA GEFORCE GPUS/d; /Below are the legacy GPUs/q' | grep '^    ' | grep -v '\-\-\-\-\-' | grep -v 'Device PCI ID' | sed 's/^    //; s/.*  0x\([0-9A-Z]\)/10DE:\1/;' | cut -f1 -d' ' | sort | uniq`
+ supported_geforce=`zcat /usr/share/doc/nvidia-driver/README.txt.gz | sed '1,/A1. NVIDIA GEFORCE GPUS/d; /Below are the legacy GPUs/q' | grep '^    ' | grep -v '\-\-\-\-\-' | grep -v 'Device PCI ID' | sed 's/^    //; s/.*   \([0-9A-Z][0-9A-Z][0-9A-Z][0-9A-Z]\) .*/10DE:\1/;' | sort | uniq`
  # set a flag to indicate no supported geforce found
  foundsupportedgeforcecard="false"
  for i in $detected_geforce
