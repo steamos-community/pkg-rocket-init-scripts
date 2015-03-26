@@ -56,6 +56,8 @@ Section "Device"
     Driver "nouveau"
 EndSection
 EOF
+   else
+     rm -f /etc/X11/xorg.conf.d/20-nouveau.conf
    fi
  else
    rm -f /etc/X11/xorg.conf.d/20-nouveau.conf
