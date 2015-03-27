@@ -3,7 +3,7 @@
 set -e
 
 if [ "$1" = "purge" ] ; then
-        update-rc.d rocket-fallback-to-mesa remove >/dev/null
+        update-rc.d rocket-gpu-fallback remove >/dev/null
 fi
 #DEBHELPER#
 exit 0

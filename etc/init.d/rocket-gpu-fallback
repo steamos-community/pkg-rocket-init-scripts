@@ -1,12 +1,12 @@
 #! /bin/bash
 ### BEGIN INIT INFO
-# Provides:         rocket-fallback-to-mesa
+# Provides:         rocket-gpu-fallback
 # Required-Start:   $remote_fs $syslog build-dkms
 # Required-Stop:
 # Default-Start:    2 3 4 5
 # Default-Stop:     0 1 6
-# Short-Description: Mesa fallback on NV/AMD
-# Description:       Detect unsupported old GPUs and use Mesa for them
+# Short-Description: GPU fallback on NV/AMD
+# Description:       Detect unsupported old GPUs and use a suitable driver for them
 ### END INIT INFO
 
 PATH=/sbin:/bin:/usr/bin:/usr/sbin
