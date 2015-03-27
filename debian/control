@@ -10,6 +10,7 @@ Package: rocket-init-scripts
 Architecture: all
 Depends: ${misc:Depends}, 
  nvidia-driver,
+ nvidia-legacy-340xx-driver,
  fglrx-modules-dkms
 Description: Init script modifications for Stephenson's Rocket
  This package contains files specific to Stephenson's Rocket, and alter boot

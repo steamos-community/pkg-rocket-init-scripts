@@ -50,17 +50,14 @@ do_start () {
    then update-alternatives --set glx /usr/lib/mesa-diverted
    mkdir -p /etc/X11/xorg.conf.d
    if [ -n "$detected_geforce" ]
-     then cat <<EOF >/etc/X11/xorg.conf.d/20-nouveau.conf
-Section "Device"
-    Identifier "Nvidia card"
-    Driver "nouveau"
-EndSection
-EOF
+     then update-alternatives --set nvidia /usr/lib/nvidia/legacy-340xx
+     update-alternatives --set glx /usr/lib/nvidia
+     modprobe nvidia-legacy-340xx
    else
-     rm -f /etc/X11/xorg.conf.d/20-nouveau.conf
+     update-alternatives --set nvidia /usr/lib/nvidia/current
    fi
  else
-   rm -f /etc/X11/xorg.conf.d/20-nouveau.conf
+   update-alternatives --set nvidia /usr/lib/nvidia/current
  fi
 
  ldconfig
