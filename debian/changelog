@@ -1,3 +1,9 @@
+rocket-init-scripts (00000011) alchemist-beta; urgency=medium
+
+  * [cf08cd7] Always blacklist Nouveau
+
+ -- Jo Shields <directhex@apebox.org>  Sat, 28 Mar 2015 15:49:00 +0000
+
 rocket-init-scripts (00000010) alchemist-beta; urgency=medium
 
   * [e065b10] Fix NVIDIA detect script
