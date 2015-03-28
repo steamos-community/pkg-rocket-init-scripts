@@ -56,6 +56,9 @@ do_start () {
    else
      update-alternatives --set nvidia /usr/lib/nvidia/current
    fi
+   if [ -n "$detected_radeons" ]
+     then modprobe radeon
+   fi
  else
    update-alternatives --set nvidia /usr/lib/nvidia/current
  fi
