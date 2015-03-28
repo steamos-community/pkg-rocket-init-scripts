@@ -1,3 +1,11 @@
+rocket-init-scripts (00000101) alchemist-beta; urgency=medium
+
+  * [7e1bede] Blacklist the Radeon DRM, and explicitly load it in our 
+    init script. Otherwise, if non-fglrx was in use last time depmod 
+    -a was run, then fglrx will fail to load on next boot.
+
+ -- Jo Shields <directhex@apebox.org>  Sat, 28 Mar 2015 18:30:54 +0000
+
 rocket-init-scripts (00000100) alchemist-beta; urgency=medium
 
   * [bf11e58] Also blacklist NVIDIA legacy module, to force it to be 
