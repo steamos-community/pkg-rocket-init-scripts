@@ -1,3 +1,15 @@
+rocket-init-scripts (00000010) alchemist-beta; urgency=medium
+
+  * [e065b10] Fix NVIDIA detect script
+  * [a012640] Disable Nouveau when no geforce is found, not just when no 
+    Mesa card is found
+  * [38240b5] Rename init script to something more generic, as we have a 
+    non-Mesa path
+  * [06b1c4d] Use nvidia-legacy, not Nouveau. Sorry guys, Nouveau is crazy 
+    unstable.
+
+ -- Jo Shields <directhex@apebox.org>  Sat, 28 Mar 2015 11:46:49 +0000
+
 rocket-init-scripts (00000001) alchemist; urgency=medium
 
   * Initial release.
