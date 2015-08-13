@@ -1,0 +1,12 @@
+[Unit]
+Description=Update Default Graphics (Stephenson's Rocket)
+Before=systemd-user-sessions.service
+After=update-graphics.service
+
+[Service]
+ExecStart=/etc/init.d/rocket-gpu-fallback start
+Type=oneshot
+
+[Install]
+WantedBy=display-manager.service
+
