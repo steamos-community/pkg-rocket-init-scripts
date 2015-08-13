@@ -1,3 +1,11 @@
+rocket-init-scripts (00000110) brewmaster-beta; urgency=medium
+
+  * [8ee70b5] Switch init script dependency to new update-graphics,
+    not old build-dkms
+  * [66a665b] Add systemd unit file version of rocket-gpu-fallback
+
+ -- Jo Shields <directhex@apebox.org>  Thu, 13 Aug 2015 19:10:37 +0100
+
 rocket-init-scripts (00000101) alchemist-beta; urgency=medium
 
   * [7e1bede] Blacklist the Radeon DRM, and explicitly load it in our 
