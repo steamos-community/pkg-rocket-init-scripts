@@ -1,7 +1,7 @@
 #! /bin/bash
 ### BEGIN INIT INFO
 # Provides:         rocket-gpu-fallback
-# Required-Start:   $remote_fs $syslog build-dkms
+# Required-Start:   $remote_fs $syslog update-graphics
 # Required-Stop:
 # Default-Start:    2 3 4 5
 # Default-Stop:     0 1 6

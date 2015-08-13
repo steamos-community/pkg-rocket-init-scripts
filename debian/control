@@ -11,7 +11,8 @@ Architecture: all
 Depends: ${misc:Depends}, 
  nvidia-driver,
  nvidia-legacy-340xx-driver,
- fglrx-modules-dkms
+ fglrx-modules-dkms,
+ steamos-base-files (>= 2.37)
 Description: Init script modifications for Stephenson's Rocket
  This package contains files specific to Stephenson's Rocket, and alter boot
  behaviour compared to SteamOS.
