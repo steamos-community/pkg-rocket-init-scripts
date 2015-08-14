@@ -1,3 +1,9 @@
+rocket-init-scripts (00000111) brewmaster-beta; urgency=medium
+
+  * Bump package version
+
+ -- Jo Shields <directhex@apebox.org>  Fri, 14 Aug 2015 12:07:35 +0100
+
 rocket-init-scripts (00000110) brewmaster-beta; urgency=medium
 
   * [8ee70b5] Switch init script dependency to new update-graphics,
