@@ -1,3 +1,9 @@
+rocket-init-scripts (00001000) brewmaster-beta; urgency=medium
+
+  * [6a81a65] Get rid of update-rc.d - only use systemd unit files
+
+ -- Jo Shields <directhex@apebox.org>  Fri, 14 Aug 2015 12:28:08 +0100
+
 rocket-init-scripts (00000111) brewmaster-beta; urgency=medium
 
   * Bump package version
