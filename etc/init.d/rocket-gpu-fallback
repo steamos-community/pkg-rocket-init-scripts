@@ -30,12 +30,9 @@ do_start () {
  done
 
  # check for NVIDIA cards not supported by nvidia-glx
- # all ATI cards (even Apple derivs) have NVIDIA PCI ID 10DE, and VGA cards have class 0300h
+ # all NVIDIA cards (even Apple derivs) have NVIDIA PCI ID 10DE, and VGA cards have class 0300h
  detected_geforce=`lspci -n | grep " 0300: " | cut -f3 -d' ' | grep ^10de | tr '[:lower:]' '[:upper:]'`
- # $DEITY preserve my soul for this.
- # there is no machine-readable way to get the list of supported GPUs for NVIDIA. We need to use grep on the README file.
- # let's just pray the format never changes under us.
- # hooray
+ # the nvidia driver bundles a list of supported cards
  supported_geforce=`sed -re 's/^.{4}/&:/' /usr/lib/nvidia/current/nvidia.ids`
  # set a flag to indicate no supported geforce found
  foundsupportedgeforcecard="false"
